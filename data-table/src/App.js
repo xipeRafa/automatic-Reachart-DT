@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from "material-table";
 import axios from 'axios';
-import {Modal,Button} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import { LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from "recharts";
-import BodyDelete from './components/BodyDelete';
-import BodyEdit from './components/BodyEdit';
-import BodyInsert from './components/BodyInsert';
+import ModalsDataTable from './components/ModalsDataTable';
 
 const baseUrl="http://localhost:3001/data";
         
 const useStyles = makeStyles((theme) => ({
+
   modal: {
     position: 'absolute',
     width: 300,
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
 
-  const styles= useStyles();
+ const styles= useStyles();
   const [data, setData]= useState([]);
   const [modalInsert, setModalInsert]= useState(false);
   const [modalEdit, setModalEdit]= useState(false);
@@ -141,22 +140,15 @@ function App() {
           localization={{ header:{actions: "Actions"} }}
        />
 
-        <Modal open={modalInsert} onClose={handleModalInsert}>
-                <BodyInsert post={post} styles={styles} petitionPost={petitionPost}
-                            handleModalInsert={handleModalInsert} handleChange={handleChange}/>
-        </Modal>
+       <ModalsDataTable  modalInsert={modalInsert} handleModalInsert={handleModalInsert} 
+                         modalEdit={modalEdit} handleModalEdit={handleModalEdit} 
+                         modalDelete={modalDelete}  handleModalDelet={handleModalDelet} 
+                        
+                         post={post} styles={styles} handleChange={handleChange}
+                         petitionPost={petitionPost} petitionPut={petitionPut} petitionDelete={petitionDelete}
+        />
 
-        <Modal open={modalEdit} onClose={handleModalEdit}> 
-            <BodyEdit post={post} styles={styles} petitionPut={petitionPut}
-                      handleModalEdit={handleModalEdit} handleChange={handleChange}/>
-        </Modal>
-
-        <Modal open={modalDelete} onClose={handleModalDelet}> 
-              <BodyDelete post={post} styles={styles} petitionDelete={petitionDelete} handleModalDelet={handleModalDelet}/>
-        </Modal>
-      
-       
-        <LineChart width={900} height={500} data={data} margin={{top: 25,right: 30, left: 20, bottom: 5}}>
+      <LineChart width={900} height={500} data={data} margin={{top: 25,right: 30, left: 20, bottom: 5}}>
              <CartesianGrid strokeDasharray="3 3" />
              <XAxis dataKey="name" />
              <YAxis />
