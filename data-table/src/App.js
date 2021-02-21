@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from "material-table";
 import axios from 'axios';
-import {Modal, TextField, Button} from '@material-ui/core';
+import {Modal,Button} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import { LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from "recharts";
+import BodyDelete from './components/BodyDelete';
+import BodyEdit from './components/BodyEdit';
+import BodyInsert from './components/BodyInsert';
 
 const baseUrl="http://localhost:3001/data";
         
@@ -107,53 +110,6 @@ function App() {
     petitionGet();
   }, [])
 
-  const bodyInsertar=(
-    <div className={styles.modal}>
-      <h3>Post</h3>
-      <TextField className={styles.inputMaterial} label="name" name="name" onChange={handleChange}/>
-      <br />
-      <TextField className={styles.inputMaterial} label="uv" name="uv" onChange={handleChange}/>          
-   <br />
-<TextField className={styles.inputMaterial} label="pv" name="pv" onChange={handleChange}/>
-      <br />
-<TextField className={styles.inputMaterial} label="amt" name="amt" onChange={handleChange}/>
-      <br /><br />
-      <div align="right">
-        <Button color="primary" onClick={()=>petitionPost()}>Add</Button>
-        <Button onClick={()=>handleModalInsert()}>Cancel</Button>
-      </div>
-    </div>
-  )
-
-  const bodyEditar=(
-    <div className={styles.modal}>
-      <h3>Edit</h3>
-      <TextField className={styles.inputMaterial} label="name" name="name" onChange={handleChange} value={post&&post.name}/>
-      <br />
-      <TextField className={styles.inputMaterial} label="uv" name="uv" onChange={handleChange} value={post&&post.uv}/>          
-     <br />
-       <TextField className={styles.inputMaterial} label="pv" name="pv" onChange={handleChange} value={post&&post.pv}/>
-      <br />
-     <TextField className={styles.inputMaterial} label="amt" name="amt" onChange={handleChange} value={post&&post.amt}/>
-      <br /><br />
-      <div align="right">
-        <Button color="primary" onClick={()=>petitionPut()}>Edit</Button>
-        <Button onClick={()=>handleModalEdit()}>Cancel</Button>
-      </div>
-    </div>
-  )
-
-  const bodyEliminar=(
-    <div className={styles.modal}>
-      <p>Are you sure you want to delete? <b>{post && post.name}</b>? </p>  
-
-      <div align="right">
-        <Button color="secondary" onClick={()=>petitionDelete()}>Yes</Button>
-        <Button onClick={()=>handleModalDelet()}>No</Button>
-      </div>
-
-    </div>
-  )
   const columns = [
     { title: 'name', field: 'name' },
     { title: 'uv', field: 'uv' },
@@ -185,16 +141,18 @@ function App() {
           localization={{ header:{actions: "Actions"} }}
        />
 
-       <Modal open={modalInsert} onClose={handleModalInsert}>
-           {bodyInsertar}
+        <Modal open={modalInsert} onClose={handleModalInsert}>
+                <BodyInsert post={post} styles={styles} petitionPost={petitionPost}
+                            handleModalInsert={handleModalInsert} handleChange={handleChange}/>
         </Modal>
 
         <Modal open={modalEdit} onClose={handleModalEdit}> 
-            {bodyEditar} 
+            <BodyEdit post={post} styles={styles} petitionPut={petitionPut}
+                      handleModalEdit={handleModalEdit} handleChange={handleChange}/>
         </Modal>
 
         <Modal open={modalDelete} onClose={handleModalDelet}> 
-            {bodyEliminar} 
+              <BodyDelete post={post} styles={styles} petitionDelete={petitionDelete} handleModalDelet={handleModalDelet}/>
         </Modal>
       
        
