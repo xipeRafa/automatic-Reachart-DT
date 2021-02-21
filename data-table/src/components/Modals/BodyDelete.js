@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {Button} from '@material-ui/core'
 
 const BodyDelete = ({post,styles,petitionDelete,handleModalDelete}) => {
@@ -13,7 +13,7 @@ const BodyDelete = ({post,styles,petitionDelete,handleModalDelete}) => {
               </div>
           </div>
       </div>
-   )
+      )
 }
 
 export default BodyDelete

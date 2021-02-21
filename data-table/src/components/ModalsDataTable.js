@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   }));
  
 
-const ModalsDataTable = ({modalInsert, handleModalInsert,modalEdit,handleModalEdit,modalDelete, handleModalDelet,post, handleChange,petitionPost, petitionPut, petitionDelete }) => {
+const ModalsDataTable = ({modalInsert, handleModalInsert,modalEdit,handleModalEdit,modalDelete, handleModalDelete,post, handleChange,petitionPost, petitionPut, petitionDelete }) => {
 
       const styles= useStyles();
       return (
@@ -44,9 +44,9 @@ const ModalsDataTable = ({modalInsert, handleModalInsert,modalEdit,handleModalEd
                   />
             </Modal>
       
-            <Modal open={modalDelete} onClose={handleModalDelet}> 
+            <Modal open={modalDelete} onClose={handleModalDelete}> 
                     <BodyDelete post={post} styles={styles} petitionDelete={petitionDelete} 
-                                handleModalDelet={handleModalDelet}
+                                handleModalDelete={handleModalDelete}
                     />
             </Modal>
       

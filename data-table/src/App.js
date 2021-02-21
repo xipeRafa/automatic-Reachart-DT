@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 
 import ModalsDataTable from './components/ModalsDataTable'
@@ -7,8 +7,10 @@ import Chart from './components/Chart'
 
 const baseUrl="http://localhost:3001/data"
 
+
 function App() {
-  const [data, setData]= useState([])
+
+ const [data, setData]= useState([]);
   const [modalInsert, setModalInsert]= useState(false)
   const [modalEdit, setModalEdit]= useState(false)
   const [modalDelete, setModalDelete]= useState(false)
@@ -19,7 +21,7 @@ function App() {
     amt: "",
     id: ""
   })
-  
+ 
   const handleChange = e =>{
       setPost({
       ...post,
@@ -30,9 +32,9 @@ function App() {
   const petitionGet = async () => { 
     await axios.get(baseUrl)
     .then(response=>{
-     setData(response.data)
+     setData(response.data);
     }).catch(error=>{
-      console.log(error)
+      console.log(error);
     })
   }
 
@@ -68,7 +70,7 @@ function App() {
   const petitionDelete=async()=>{
     await axios.delete(baseUrl+"/"+post.id)
     .then(()=>{
-      setData(data.filter(name=>name.id!==post.id))
+      setData(data.filter(name=>name.id!==post.id));
       handleModalDelete()
     }).catch(error=>{
       console.log(error)
@@ -91,7 +93,7 @@ function App() {
   }
 
   return (
-    <div>
+    <Fragment>
     
       <TableCrud Actions={Actions} data={data} handleModalInsert={handleModalInsert}/>
 
@@ -104,8 +106,7 @@ function App() {
         />
 
       <Chart data={data}/>
-
-    </div>
+     </Fragment>
   )
 }
 
