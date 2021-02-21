@@ -1,9 +1,9 @@
 import React,{Fragment} from 'react'
-import BodyDelete from './BodyDelete';
-import BodyEdit from './BodyEdit';
-import BodyInsert from './BodyInsert';
-import {Modal} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import BodyDelete from './Modals/BodyDelete'
+import BodyEdit from './Modals/BodyEdit'
+import BodyInsert from './Modals/BodyInsert'
+import {Modal} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
       modal: {
@@ -26,30 +26,31 @@ const useStyles = makeStyles((theme) => ({
   }));
  
 
-const ModalsDataTable = ({modalInsert={modalInsert}, handleModalInsert={handleModalInsert},
-                          modalEdit={modalEdit},handleModalEdit={handleModalEdit},
-                          modalDelete={modalDelete}, handleModalDelet={handleModalDelet},
-
-                          post={post}, handleChange={handleChange},
-                          petitionPost={petitionPost}, petitionPut={petitionPut}, petitionDelete={petitionDelete} }) => {
+const ModalsDataTable = ({modalInsert, handleModalInsert,modalEdit,handleModalEdit,modalDelete, handleModalDelet,post, handleChange,petitionPost, petitionPut, petitionDelete }) => {
 
       const styles= useStyles();
       return (
-            <Fragment>
-      <Modal open={modalInsert} onClose={handleModalInsert}>
-                <BodyInsert post={post} styles={styles} petitionPost={petitionPost}
-                            handleModalInsert={handleModalInsert} handleChange={handleChange}/>
-        </Modal>
-
-        <Modal open={modalEdit} onClose={handleModalEdit}> 
-            <BodyEdit post={post} styles={styles} petitionPut={petitionPut}
-                      handleModalEdit={handleModalEdit} handleChange={handleChange}/>
-        </Modal>
-
-        <Modal open={modalDelete} onClose={handleModalDelet}> 
-              <BodyDelete post={post} styles={styles} petitionDelete={petitionDelete} handleModalDelet={handleModalDelet}/>
-        </Modal>
-        </Fragment>
+       <Fragment>
+         
+            <Modal open={modalInsert} onClose={handleModalInsert}>
+                      <BodyInsert post={post} styles={styles} petitionPost={petitionPost}
+                                  handleModalInsert={handleModalInsert} handleChange={handleChange}
+                      />
+            </Modal>
+      
+            <Modal open={modalEdit} onClose={handleModalEdit}> 
+                  <BodyEdit post={post} styles={styles} petitionPut={petitionPut}
+                            handleModalEdit={handleModalEdit} handleChange={handleChange}
+                  />
+            </Modal>
+      
+            <Modal open={modalDelete} onClose={handleModalDelet}> 
+                    <BodyDelete post={post} styles={styles} petitionDelete={petitionDelete} 
+                                handleModalDelet={handleModalDelet}
+                    />
+            </Modal>
+      
+       </Fragment>
       )
 }
 
