@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import MaterialTable from "material-table";
 import axios from 'axios';
-import {Button} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+
 import { LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from "recharts";
+
 import ModalsDataTable from './components/ModalsDataTable';
+
+import TableCrud from './components/TableCrud';
 
 const baseUrl="http://localhost:3001/data";
         
@@ -100,21 +102,14 @@ function App() {
       console.log(error);
     })
   }
+  
+  useEffect(()=>{
+    petitionGet();
+  }, [])
 
   const handleModalInsert=()=>{setModalInsert(!modalInsert);}
   const handleModalEdit=()=>{setModalEdit(!modalEdit);}
   const handleModalDelet=()=>{setModalDelete(!modalDelete);}
-
-   useEffect(()=>{
-    petitionGet();
-  }, [])
-
-  const columns = [
-    { title: 'name', field: 'name' },
-    { title: 'uv', field: 'uv' },
-    { title: 'pv', field: 'pv' },
-    { title: 'amt', field: 'amt', type: 'numeric'}
-  ];
 
   const Actions =(name, caso)=>{
     setPost(name);
@@ -126,19 +121,7 @@ function App() {
   return (
     <div>
     
-      <Button onClick={()=>handleModalInsert()}>Post</Button>
-     
-      <MaterialTable
-          columns={columns}
-          data={data}
-          title="Data Table"  
-          actions={[{icon: 'edit',tooltip: 'Edit',onClick: (event, rowData) => Actions (rowData, "Edit")},
-                    {icon: 'delete',tooltip: 'Delete',onClick: (event, rowData) => Actions (rowData, "Delete")}
-                  ]}
-
-          options={{actionsColumnIndex: 4, rowStyle: {backgroundColor: '#EEE'}}}
-          localization={{ header:{actions: "Actions"} }}
-       />
+      <TableCrud Actions={Actions} data={data} handleModalInsert={handleModalInsert}/>
 
        <ModalsDataTable  modalInsert={modalInsert} handleModalInsert={handleModalInsert} 
                          modalEdit={modalEdit} handleModalEdit={handleModalEdit} 
@@ -147,6 +130,8 @@ function App() {
                          post={post} styles={styles} handleChange={handleChange}
                          petitionPost={petitionPost} petitionPut={petitionPut} petitionDelete={petitionDelete}
         />
+
+
 
       <LineChart width={900} height={500} data={data} margin={{top: 25,right: 30, left: 20, bottom: 5}}>
              <CartesianGrid strokeDasharray="3 3" />
