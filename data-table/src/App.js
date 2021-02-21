@@ -1,39 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {makeStyles} from '@material-ui/core/styles';
-
-import { LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from "recharts";
 
 import ModalsDataTable from './components/ModalsDataTable';
-
 import TableCrud from './components/TableCrud';
+import Chart from './components/Chart';
 
 const baseUrl="http://localhost:3001/data";
-        
-const useStyles = makeStyles((theme) => ({
 
-  modal: {
-    position: 'absolute',
-    width: 300,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
-  },
-  iconos:{
-    cursor: 'pointer'
-  }, 
-  inputMaterial:{
-    width: '100%'
-  }
-}));
 
 function App() {
 
- const styles= useStyles();
+ 
   const [data, setData]= useState([]);
   const [modalInsert, setModalInsert]= useState(false);
   const [modalEdit, setModalEdit]= useState(false);
@@ -102,7 +79,7 @@ function App() {
       console.log(error);
     })
   }
-  
+
   useEffect(()=>{
     petitionGet();
   }, [])
@@ -127,21 +104,11 @@ function App() {
                          modalEdit={modalEdit} handleModalEdit={handleModalEdit} 
                          modalDelete={modalDelete}  handleModalDelet={handleModalDelet} 
                         
-                         post={post} styles={styles} handleChange={handleChange}
+                         post={post} handleChange={handleChange}
                          petitionPost={petitionPost} petitionPut={petitionPut} petitionDelete={petitionDelete}
         />
 
-
-
-      <LineChart width={900} height={500} data={data} margin={{top: 25,right: 30, left: 20, bottom: 5}}>
-             <CartesianGrid strokeDasharray="3 3" />
-             <XAxis dataKey="name" />
-             <YAxis />
-             <Tooltip />
-             <Legend />
-             <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }}/>
-             <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
+      <Chart data={data}/>
      </div>
   )
 }
