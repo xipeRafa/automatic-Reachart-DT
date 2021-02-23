@@ -1,4 +1,3 @@
-
 import {Button} from '@material-ui/core'
 
 const BodyDelete = ({post,styles,petitionDelete,handleModalDelete}) => {
