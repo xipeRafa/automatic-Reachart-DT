@@ -11,7 +11,7 @@ const baseUrl="http://localhost:3001/data"
 
 function App() {
 
- const [data, setData]= useState([]);
+  const [data, setData]= useState([]);
   const [modalInsert, setModalInsert]= useState(false)
   const [modalEdit, setModalEdit]= useState(false)
   const [modalDelete, setModalDelete]= useState(false)
@@ -39,7 +39,7 @@ function App() {
     })
   }
 
-  const petitionPost=async()=>{
+  const petitionPost = async () => {
     await axios.post(baseUrl, post)
     .then(response=>{
       setData(data.concat(response.data))
@@ -49,7 +49,7 @@ function App() {
     })
   }
 
-  const petitionPut=async()=>{
+  const petitionPut = async () => {
     await axios.put(baseUrl+"/"+post.id, post)
     .then(()=>{
       var newData= data;
@@ -68,7 +68,7 @@ function App() {
     })
   }
 
-  const petitionDelete=async()=>{
+  const petitionDelete = async () => {
     await axios.delete(baseUrl+"/"+post.id)
     .then(()=>{
       setData(data.filter(name=>name.id!==post.id));
@@ -86,7 +86,7 @@ function App() {
   const handleModalEdit=()=>{setModalEdit(!modalEdit)}
   const handleModalDelete=()=>{setModalDelete(!modalDelete)}
 
-  const Actions =(name, caso)=>{
+  const Actions = (name, caso) => {
     setPost(name);
     (caso==="Edit")
     ?handleModalEdit()
@@ -98,7 +98,7 @@ function App() {
     
       <TableCrud Actions={Actions} data={data} handleModalInsert={handleModalInsert}/>
 
-       <ModalsDataTable  modalInsert={modalInsert} handleModalInsert={handleModalInsert} 
+      <ModalsDataTable   modalInsert={modalInsert} handleModalInsert={handleModalInsert} 
                          modalEdit={modalEdit} handleModalEdit={handleModalEdit} 
                          modalDelete={modalDelete}  handleModalDelete={handleModalDelete} 
                         
@@ -107,7 +107,8 @@ function App() {
         />
 
       <Chart data={data}/>
-     </Fragment>
+
+    </Fragment>
   )
 }
 
