@@ -1,20 +1,21 @@
-import {Fragment} from 'react'
 import MaterialTable from "material-table"
+import {Fragment} from 'react'
 import {Button} from '@material-ui/core'
 
 const TableCrud = ({ Actions, data, handleModalInsert }) => {
 
       const columns = [
-            { title: 'name', field: 'name' },
+            { title: 'name', field:'name'},
             { title: 'uv', field: 'uv' },
             { title: 'pv', field: 'pv' },
             { title: 'amt', field: 'amt'}
       ]
           
       return (
+
         <Fragment>
         
-          <Button onClick={ ()=> handleModalInsert() }>Post New Info</Button>
+          <Button onClick={()=> handleModalInsert() }>Post New Info</Button>
 
           <MaterialTable
               columns={columns}
@@ -26,6 +27,7 @@ const TableCrud = ({ Actions, data, handleModalInsert }) => {
                          rowStyle: {backgroundColor: '#EEE'}
                         }
                       }
+
               localization={ 
                               { 
                                 header:{actions: "Actions"} 
@@ -47,6 +49,7 @@ const TableCrud = ({ Actions, data, handleModalInsert }) => {
           />
 
         </Fragment>
+
       )
 }
 

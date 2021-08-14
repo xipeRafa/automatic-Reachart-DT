@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core'
 
-const BodyInsert = ({styles, petitionPost, handleModalInsert, handleChange}) => {
+const BodyInsert = ({ styles, petitionPost, handleModalInsert, handleChange }) => {
 
       return (
 
@@ -42,7 +42,7 @@ const BodyInsert = ({styles, petitionPost, handleModalInsert, handleChange}) => 
                   </Button>
 
                 </div>
-                
+
             </div>
      )
 }

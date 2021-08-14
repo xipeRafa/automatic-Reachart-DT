@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core'
 
-const BodyEdit = ({post, styles, petitionPut, handleModalEdit, handleChange}) => {
+const BodyEdit = ({ post, styles, petitionPut, handleModalEdit, handleChange }) => {
 
   return (
 

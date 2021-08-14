@@ -1,13 +1,12 @@
-import { useState, useEffect, Fragment } from 'react'
-
-import axios from 'axios'
-
 import ModalsDataTable from './components/ModalsDataTable'
 import TableCrud from './components/TableCrud'
 import Chart from './components/Chart'
 
+import { useState, useEffect, Fragment } from 'react'
+
 const baseUrl="http://localhost:3001/data"
 
+import axios from 'axios'
 
 function App() {
 
@@ -24,7 +23,7 @@ function App() {
     amt: "",
     id: ""
   })
- 
+  
   const handleChange = e =>{
       setPost({ ...post, [e.target.name]: e.target.value })
   }
@@ -37,37 +36,36 @@ function App() {
 
   const petitionPost = async () => {
     await axios.post(baseUrl, post)
-      .then(response=>{ setData( data.concat(response.data) ); handleModalInsert() })
-      .catch(error=>{ console.log(error) })
+      .then(response => { setData( data.concat(response.data) ); handleModalInsert() })
+      .catch(  error => { console.log(error) })
   }
 
   const petitionPut = async () => {
-    await axios.put(baseUrl+"/"+post.id, post)
+    await axios.put( baseUrl + "/" + post.id, post) 
       .then(()=> {
-        var newData = data;
 
-        newData.forEach( name => {
-            if(name.id === post.id){
+          data.forEach( el => {
+            if(el.id === post.id){
 
-              name.name = post.name
-              name.uv = post.uv
-              name.pv = post.pv
-              name.amt = post.amt 
+              el.name = post.name
+              el.uv = post.uv
+              el.pv = post.pv
+              el.amt = post.amt 
 
             }
           }
         )
 
-        setData(newData)
+        setData(data)
         handleModalEdit() 
 
       }).catch( error => { console.log(error) } )
   }
 
   const petitionDelete = async () => {
-    await axios.delete(baseUrl+"/"+post.id)
-      .then(()=>{ setData(data.filter( name => name.id !== post.id )); handleModalDelete() })
-      .catch(error=>{ console.log(error) })
+    await axios.delete( baseUrl + "/" + post.id )
+      .then(()=> { setData(data.filter( el => el.id !== post.id )); handleModalDelete() })
+      .catch( error => { console.log(error) } )
   }
 
   useEffect(()=> { petitionGet() }, [])
@@ -82,19 +80,19 @@ function App() {
   }
 
   return (
-    
+
     <Fragment>
     
       <TableCrud 
-          Actions={Actions}
           data={data} 
+          Actions={Actions}
           handleModalInsert={handleModalInsert}
       />
 
       <ModalsDataTable  
           post={post}
-          modalEdit={modalEdit} 
 
+          modalEdit={modalEdit} 
           petitionPut={petitionPut} 
           modalInsert={modalInsert}
 
@@ -112,6 +110,7 @@ function App() {
       <Chart data={data}/>
 
     </Fragment>
+
   )
 }
 

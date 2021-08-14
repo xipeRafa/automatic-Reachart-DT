@@ -1,26 +1,36 @@
-import {Fragment} from 'react'
+
 import BodyDelete from './Modals/BodyDelete'
 import BodyEdit from './Modals/BodyEdit'
 import BodyInsert from './Modals/BodyInsert'
-import {Modal} from '@material-ui/core'
 import useStyles from '../styles'
 
+import {Modal} from '@material-ui/core'
+import {Fragment} from 'react'
+
 const ModalsDataTable = (
-                        { post,
+                        { 
+                          post,
+
                           modalInsert,
                           modalEdit,
                           handleModalEdit,
+
                           modalDelete, 
                           handleModalDelete, 
+
                           handleChange,
                           petitionPost, 
+
                           petitionPut, 
                           petitionDelete,
-                          handleModalInsert, }) => {
+                          handleModalInsert, 
+                        }
+                        ) => {
 
       const styles = useStyles();
 
       return (
+
        <Fragment>
          
             <Modal open={modalInsert} onClose={handleModalInsert}>
@@ -30,7 +40,9 @@ const ModalsDataTable = (
                         styles={styles} 
                         petitionPost={petitionPost}
                         handleChange={handleChange}
-                        handleModalInsert={handleModalInsert} />
+                        handleModalInsert={handleModalInsert} 
+                     />
+
             </Modal>
       
             <Modal open={modalEdit} onClose={handleModalEdit}> 
@@ -42,6 +54,7 @@ const ModalsDataTable = (
                         handleChange={handleChange}
                         handleModalEdit={handleModalEdit} 
                   />
+
             </Modal>
       
             <Modal open={modalDelete} onClose={handleModalDelete}> 
@@ -50,10 +63,13 @@ const ModalsDataTable = (
                         post={post} 
                         styles={styles} 
                         petitionDelete={petitionDelete} 
-                        handleModalDelete={handleModalDelete}/>
+                        handleModalDelete={handleModalDelete}
+                    />
+
             </Modal>
       
        </Fragment>
+
       )
 }
 
