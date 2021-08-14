@@ -33,11 +33,11 @@ const BodyInsert = ({ styles, petitionPost, handleModalInsert, handleChange }) =
 
                 <div align="right">
 
-                  <Button  onClick={()=>petitionPost()} color="primary">
+                  <Button  onClick={()=> petitionPost()} color="primary">
                     Add
                   </Button>
 
-                  <Button  onClick={()=>handleModalInsert()}>
+                  <Button  onClick={()=> handleModalInsert()}>
                     Cancel
                   </Button>
 

@@ -13,7 +13,7 @@ function App() {
   const [data, setData] = useState([]);
 
   const [modalInsert, setModalInsert] = useState(false)
-  const [modalEdit, setModalEdit] = useState(false)
+      const [modalEdit, setModalEdit] = useState(false)
   const [modalDelete, setModalDelete] = useState(false)
 
   const [post, setPost] = useState({
@@ -56,8 +56,7 @@ function App() {
           }
         )
 
-        setData(data)
-        handleModalEdit() 
+        setData(data); handleModalEdit() 
 
       }).catch( error => { console.log(error) } )
   }
