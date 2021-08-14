@@ -1,12 +1,12 @@
+import { useState, useEffect, Fragment } from 'react'
 import ModalsDataTable from './components/ModalsDataTable'
 import TableCrud from './components/TableCrud'
 import Chart from './components/Chart'
+import axios from 'axios'
 
-import { useState, useEffect, Fragment } from 'react'
 
 const baseUrl="http://localhost:3001/data"
 
-import axios from 'axios'
 
 function App() {
 
