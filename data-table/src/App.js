@@ -58,8 +58,8 @@ function App() {
   }
 
   const petitionPut = async () => {
-    await axios.put( baseUrl + "/" + post.id, post) 
- /*       .then(()=> {
+    /* await axios.put( baseUrl + "/" + post.id, post) 
+        .then(()=> {
  
           dataState.forEach( el => {
             if(el.id === post.id){
