@@ -13,7 +13,7 @@ function App() {
   const [dataState, setData] = useState([]);
 
   const [modalInsert, setModalInsert] = useState(false)
-      const [modalEdit, setModalEdit] = useState(false)
+  const [modalEdit,   setModalEdit  ] = useState(false)
   const [modalDelete, setModalDelete] = useState(false)
 
   const [post, setPost] = useState({
@@ -48,8 +48,8 @@ function App() {
       .catch(  error => { console.log(error) })  */
 
        try {
-        const { data } = await axios.post(baseUrl, post);
-        setData([...dataState, data])
+        /* const { data } = */ await axios.post(baseUrl, post);
+      /*   setData([...dataState, data]) */
         handleModalInsert()
       } catch (error) {
         console.log(error);
@@ -59,8 +59,8 @@ function App() {
 
   const petitionPut = async () => {
     await axios.put( baseUrl + "/" + post.id, post) 
-      .then(()=> {
-
+ /*       .then(()=> {
+ 
           dataState.forEach( el => {
             if(el.id === post.id){
 
@@ -73,18 +73,34 @@ function App() {
           }
         )
 
-        setData(dataState); handleModalEdit() 
+        setData(dataState);  handleModalEdit() 
 
-      }).catch( error => { console.log(error) } )
+      }).catch( error => { console.log(error) } )  */
+
+      try {
+        await axios.put( baseUrl + "/" + post.id, post)
+        handleModalEdit() 
+      } catch (error) {
+        console.log(error);
+        console.log('error en petitionPut');
+      }
   }
 
   const petitionDelete = async () => {
-    await axios.delete( baseUrl + "/" + post.id )
-      .then(()=> { setData(dataState.filter( el => el.id !== post.id )); handleModalDelete() })
-      .catch( error => { console.log(error) } )
+   /*  await axios.delete( baseUrl + "/" + post.id ) */
+    /*   .then(()=> { setData(dataState.filter( el => el.id !== post.id )); handleModalDelete() })
+      .catch( error => { console.log(error) } ) */
+
+      try {
+        await axios.delete( baseUrl + "/" + post.id, post)
+        handleModalDelete()
+      } catch (error) {
+        console.log(error);
+        console.log('error en petitionDelete');
+      }
   }
 
-  useEffect(()=> { petitionGet() }, [])
+  useEffect(()=> { petitionGet() }, [modalInsert,modalEdit,modalDelete])
 
   const handleModalInsert = () => { setModalInsert(!modalInsert) }
     const handleModalEdit = () => { setModalEdit(!modalEdit) }
@@ -131,4 +147,3 @@ function App() {
 }
 
 export default App;
-
