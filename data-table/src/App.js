@@ -10,7 +10,7 @@ const baseUrl="http://localhost:3001/data"
 
 function App() {
 
-  const [data, setData] = useState([]);
+  const [dataState, setData] = useState([]);
 
   const [modalInsert, setModalInsert] = useState(false)
       const [modalEdit, setModalEdit] = useState(false)
@@ -29,22 +29,39 @@ function App() {
   }
 
   const petitionGet = async () => { 
-    await axios.get(baseUrl)
-      .then(response => { setData(response.data) })
-      .catch(  error => { console.log(error) })
+   /*  await (baseUrl)
+      .then(response => {  setData(response.data) })
+      .catch(  error => { console.log(error) }) */
+
+      try {
+        const { data } = await axios.get(baseUrl);
+        setData(data)
+      } catch (error) {
+        console.log(error);
+        console.log('error en petitionGet');
+      }
   }
 
   const petitionPost = async () => {
-    await axios.post(baseUrl, post)
+/*     await axios.post(baseUrl, post)
       .then(response => { setData( data.concat(response.data) ); handleModalInsert() })
-      .catch(  error => { console.log(error) })
+      .catch(  error => { console.log(error) })  */
+
+       try {
+        const { data } = await axios.post(baseUrl, post);
+        setData([...dataState, data])
+        handleModalInsert()
+      } catch (error) {
+        console.log(error);
+        console.log('error en petitionPost');
+      } 
   }
 
   const petitionPut = async () => {
     await axios.put( baseUrl + "/" + post.id, post) 
       .then(()=> {
 
-          data.forEach( el => {
+          dataState.forEach( el => {
             if(el.id === post.id){
 
               el.name = post.name
@@ -56,14 +73,14 @@ function App() {
           }
         )
 
-        setData(data); handleModalEdit() 
+        setData(dataState); handleModalEdit() 
 
       }).catch( error => { console.log(error) } )
   }
 
   const petitionDelete = async () => {
     await axios.delete( baseUrl + "/" + post.id )
-      .then(()=> { setData(data.filter( el => el.id !== post.id )); handleModalDelete() })
+      .then(()=> { setData(dataState.filter( el => el.id !== post.id )); handleModalDelete() })
       .catch( error => { console.log(error) } )
   }
 
@@ -83,7 +100,7 @@ function App() {
     <Fragment>
     
       <TableCrud 
-          data={data} 
+          data={dataState} 
           Actions={Actions}
           handleModalInsert={handleModalInsert}
       />
@@ -106,7 +123,7 @@ function App() {
           handleModalInsert={handleModalInsert} 
       />
 
-      <Chart data={data}/>
+      <Chart data={dataState}/>
 
     </Fragment>
 
@@ -114,3 +131,4 @@ function App() {
 }
 
 export default App;
+
